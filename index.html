@@ -14,44 +14,7 @@
 
   gtag('config', 'UA-175196940-1');
 </script>
-<script>
-    (function() {
-        let clickblocked = false
 
-        document.querySelectorAll("a").forEach(a => {
-            a.onclick = e => {
-                e.preventDefault()
-
-                if (clickblocked || a.pathname === location.pathname) return
-                clickblocked = true
-
-                const toPath = a.pathname,
-                    fromPath = location.pathname
-                let i = 0
-
-                const destruct = setInterval(() => {
-                    i++
-                    history.replaceState({}, '', fromPath.substring(0, fromPath.length - i) + '🔨👷')
-                    if (i === fromPath.length) {
-                        history.replaceState({}, '', location.href.replace('%F0%9F%94%A8%F0%9F%91%B7', ''))
-                        clearInterval(destruct)
-                        i = 0
-                        const construct = setInterval(() => {
-                            i++
-                            history.replaceState({}, '', toPath.substring(0, i) + '🧱👷')
-                            if (i === toPath.length) {
-                                history.replaceState({}, '', location.href.replace('%F0%9F%A7%B1%F0%9F%91%B7', ''))
-                                clickblocked = false
-                                clearInterval(construct)
-                            }
-                        }, 100)
-                    }
-                }, 100)
-
-            }
-        })
-    })();
-</script>
 
 		<title>Sumeet's Portfolio</title>
 		<meta charset="utf-8" />

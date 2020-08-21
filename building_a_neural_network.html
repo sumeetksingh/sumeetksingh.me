@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Building a Neural Network</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sumeet</a>
+				<ul class="actions">
+				<li>
+				<li><a href="/Resume/SinghSumeetKumar.pdf"  class="button primary icon solid fa-download", target="_blank">Resume</a></li>
+				</li>
+			</ul>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="generic.html">My Experience</a></li>
+						<li><a href="blog.html" class="active">My Blog</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+                <section id="main" class="wrapper">
+                    <div class="inner">
+                        <h2>My First Neural Network Model on AzureML</h2>
+                        <span class="image fit"><img src="images/neural_net.png" width="50%" alt="Neural Network pipeline" /></span>
+                        <p>It was in early Summer'20 when I was awarded the Scholarship to Microsoft Machine Learning foundation program powered by Udacity. I was given an opportunity to work with Microsoft Azure and use its resources to build Machine Learning models. In this post I will show you how you can build your own Neural Network model on Azure!</p>
+                
+                    <p>
+                        A brief Intoduction to Neural networks:
+                
+                        An Artificial Neural Network or ANN is a computational model that is inspired by the way biological neural networks in the human brain process information. Basically, We're trying to immitate the biological Neural Network of the human body using a Computer program! And using Neural Network we can train models to do things like:
+                        <ul>
+                            <li>Image Classification</li>
+                            <li>Speech Recognition</li>
+                            <li>Forecasting</li>
+                            <li>Autonomous Vehicles and much more!</li>
+                        </ul>
+
+                    </p>
+                    <p>
+                        Let's see how we can build one using AzureML!
+                        Although neural networks are widely known for use in deep learning and modeling complex problems such as image recognition, they are easily adapted to regression problems. We will build a Neural Network for a Regression problem here.
+                    </p>
+                    <ol>
+                    <li><p>First after logging in to your Azure portal, you will have to open the available machine learning workspace. Select Launch now under the Try the new Azure Machine Learning studio message.
+                        <span class="image fit"><img src="images/azure/01a.png" width="50%" alt="AzureML" /></span>
+                    <li>
+                        <p>
+                            From the studio, select Datasets, + Create dataset, From web files. This will open the Create dataset from web files dialog on the right. You could also use your local dataset by selecting "From local files" but I've used the online Dataset here.
+                            <span class="image fit"><img src="images/azure/01.png" width="50%" alt="AzureML" /></span>
+                   
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            I've used a public URL for the training data file which consists of NYC-TAXI-DATA:
+                            <span class="image fit"><img src="images/azure/02.png" width="50%" alt="AzureML" /></span>
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Our next task is to Preview the Dataset, set the column headers drop down to All files have same headers. Scroll the data preview to right to observe the target column: totalAmount. After you are done reviewing the data, select Next
+                            <span class="image fit"><img src="images/azure/03.png" width="50%" alt="AzureML" /></span>
+                            We want to make sure the data has proper coloumn names and we can find our target variable.
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            In the next option you can select/remove coloumns from the dataset:
+                            <span class="image fit"><img src="images/azure/04.png" width="50%" alt="AzureML" /></span>
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Now we can confirm the final Dataset, Just simply click on Create:
+                            <span class="image fit"><img src="images/azure/05.png" width="50%" alt="AzureML" /></span>
+                            We are now done with creating our dataset! Now we can go ahead and design our pipeline for the model.
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            To create a New training Pipeline, go to studio, select Designer, +. This will open a visual pipeline authoring editor. 
+                            <span class="image fit"><img src="images/azure/06.png" width="50%" alt="AzureML" /></span>
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            As soon as you click on create new pipeline, a canvas will open up and you will have to setup a compute target. This is nothing but you are deciding from which compute you want to run this model. Select the available compute:
+                            <span class="image fit"><img src="images/azure/07.png" width="50%" alt="AzureML" /></span>
+                            <span class="image fit"><img src="images/azure/08.png" width="50%" alt="AzureML" /></span>
+
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            After you've setup your compute, you can go ahead and design your pipeline!
+                            First, we will select Datasets section in the left navigation. Next, select My Datasets, nyc-taxi-sample-data and drag and drop the selected dataset on to the canvas.
+                            <span class="image fit"><img src="images/azure/09.png" width="50%" alt="AzureML" /></span>
+
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Now that I have my dataset on the canvas, I want to transform it to use it for the model.
+                        </p>
+                        <ul>
+                            <li>
+                                Select Data Transformation section in the left navigation. Follow the steps outlined below:
+                            </li>
+                            <li>Select the Split Data prebuilt module</li>
+                            <li>Drag and drop the selected module on to the canvas</li>  
+                            <li>Fraction of rows in the first output dataset: 0.7 (we want to split the data 70:30 for train:test)</li>   
+                            <li>Connect the Dataset to the Split Data module </li>
+                            <span class="image fit"><img src="images/azure/10.png" width="50%" alt="AzureML" /></span>
+
+
+                        </ul>
+                    </li>
+                    <li>
+                        <p>
+                            After transorming the data we want to choose the model we want to implement:
+                            <ul>
+                                <li>
+                                    We will initialize regression model
+                                </li>
+                                <li>
+                                    Select Machine Learning Algorithms section in the left navigation. Follow the steps outlined below:
+                                </li>
+                                <li>
+                                    Select the Neural Network Regression prebuilt module, in the Regression category.
+                                </li>
+                                <li>
+                                    Drag and drop the selected module on to the canvas
+                                </li>
+                                <li>
+                                    Create trainer mode: Single Parameter. This option indicates how you want the model to be trained.
+                                </li>
+                                <li>
+                                    Hidden layer specification: Fully connected case.
+                                </li>
+                                <li>
+                                    For Learning rate: 0.01.
+                                </li>
+                                <span class="image fit"><img src="images/azure/13.png" width="50%" alt="AzureML" /></span>
+                                <blockquote>Because the number of nodes in the input layer is determined by the number of features in the training data, in a regression model there can be only one node in the output layer.</blockquote>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        Like traditional ML models we want to train our model. Select Model Training section in the left navigation. Follow the steps outlined below:
+                        <ul>
+                            <li>
+                                Select the Train Model prebuilt module
+                            </li>
+                            <li>
+                                Drag and drop the selected module on to the canvas
+                            </li>
+                            <li>
+                                Connect the Neural Network Regression module to the first input of the Train Model module
+                            </li>
+                            <li>
+                                Connect the first output of the Split Data module to the second input of the Train Model module
+                            </li>
+                            <li>
+                                Select the Edit column link to open the Label column editor 
+                            </li>
+                            <span class="image fit"><img src="images/azure/14.png" width="50%" alt="AzureML" /></span>
+                            <li>The Label column editor allows you to specify your Label or Target column. Type in the label column name totalAmount and then select Save.
+                            <span class="image fit"><img src="images/azure/15.png" width="50%" alt="AzureML" /></span>
+                            </li>
+                        </ul>
+                        
+
+                    </li>
+                    <li>
+                        Now we've setup our training model and would like to setup the Scoring model:
+                        <ul>
+                            <li>
+                                Select Model Scoring & Evaluation section in the left navigation. Follow the steps outlined below:
+                            </li>
+                            <li>
+                                Select the Score Model prebuilt module
+                            </li>
+                            <li>
+                                Drag and drop the selected module on to the canvas
+                            </li>
+                            <li>
+                                Connect the Train Model module to the first input of the Score Model module
+                            </li>
+                            <li>
+                                Connect the second output of the Split Data module to the second input of the Score Model module
+                            </li>
+                            <span class="image fit"><img src="images/azure/16.png" width="50%" alt="AzureML" /></span>
+                            <blockquote>
+                                Note that Split Data module will feed data for both model training and model scoring. The first output (0.7 fraction) will connect with the Train Model module and the second output (0.3 fraction) will connect with the Score Model module.
+                            </blockquote>
+                        </ul> 
+                    </li>
+                    <li>
+                        In AzureML, Scoring and Evaluating models mean two different things, We will see from the outputs how they both are different. Let's go ahead and add the Evaluate model module to the canvas.
+                        <ul>
+                            <li>
+                                Connect the Score Model module to the first input of the Evaluate Model module
+                                <span class="image fit"><img src="images/azure/17.png" width="50%" alt="AzureML" /></span>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        YAY! We're done with designing our Neural Net pipeline!
+                        Now, let's go ahead and submit this Pipeline:
+                        <ul>
+                            <li>
+                                Select Submit to open the Setup pipeline run editor.
+                                <span class="image fit"><img src="images/azure/18.png" width="50%" alt="AzureML" /></span>
+                                Select all the default options and submit the run.
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Now we will have to wait till the completion of the run.
+                    </li>
+                    <li>
+                        Once the run has been completed, Let's take a look at the results. We will start of by visualizing the output of the scoring model:
+                        <span class="image fit"><img src="images/azure/20.png" width="50%" alt="AzureML" /></span>
+
+                    </li>
+                    <li>
+                        Results:
+                        <span class="image fit"><img src="images/azure/21.png" width="50%" alt="AzureML" /></span>
+                        We can see the Scored label and the actual values next to it. Looks like our models prediction was quite good! Now let's evaluate our model.
+
+                    </li>
+                    <li>
+                        Visualize the Evaluation Results
+                        <span class="image fit"><img src="images/azure/22.png" width="50%" alt="AzureML" /></span>
+                        Result:
+                        <span class="image fit"><img src="images/azure/23.png" width="50%" alt="AzureML" /></span>
+                        We can see value of the Evaluation metrics such as MAE, RMSE etc.                 
+                     </li>
+                     <li>
+                        Congratulations! We have successfully trained a simple neural net model using the prebuilt Neural Network Regression module in the AML visual designer! 
+                    </li>
+                    
+                        </div>
+
+                            </div>
+                        </section>
+                <!-- Main -->
+               
+         
+                
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
