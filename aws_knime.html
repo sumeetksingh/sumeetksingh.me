@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175196940-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175196940-1');
+</script>
+		<title>Using AWS KNIME Analytics for ML | By Sumeet</title>
+		<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Sumeet</a>
+				<ul class="actions">
+				<li>
+				<li><a href="/Resume/SinghSumeetKumar.pdf"  class="button primary icon solid fa-download", target="_blank">Resume</a></li>
+				</li>
+			</ul>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="work.html">My Experience</a></li>
+						<li><a href="blog.html" class="active">My Blog</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+                <section id="main" class="wrapper">
+                    <div class="inner">
+                        <h2>Using AWS KNIME Analytics platform to build Machine Learning model.</h2>
+                        <span class="image fit"><img src="images/aws/00.png" width="50%" alt="KNIME ANALYTICS" /></span>
+                        <p>AWS has a plethora of tools when it comes to Analytics and Databases, be it Quicksight for  dashboards, Redshift for data warehousing, SageMaker for building ML models but a good tool which stays under the radar is KNIME Analytics platform on AWS. The best thing about KNIME analytics is that you don't have to worry about resources as the platform is run on AWS through a Remote desktop and can be set up within minutes. So, let's see how we can make the best use of this platform. </p>
+                        <p>
+                            First, we wil have to set up the environment where we can run KNIME. To do this we can log into our AWS account --> Go to KNIME analytics platform
+                        </p>
+                        <span class="image fit"><img src="images/aws/01.png" width="50%" alt="KNIME" /></span>
+                        <p>Click on Continue to Configuration</p>
+                        <span class="image fit"><img src="images/aws/02.png" width="50%" alt="KNIME" /></span>
+                        <p>Select a server region closest to your network, you might want to check the pricing for the Infrastructure and Software subscription before continuing to lauch the platform. Now scroll down to check key pair settings </p>
+                        <span class="image fit"><img src="images/aws/03.png" width="50%" alt="KNIME" /></span>
+                        <p>Make sure to select a Key pair and download it to your local machine to ensure security for your remote workstation</p>
+                        <span class="image fit"><img src="images/aws/04.png" width="50%" alt="KNIME" /></span>
+                        <p>Once you enter the AWS console, Click on your compute EC2, since thats the compute we chose while setting up the subscription. </p>
+                        <span class="image fit"><img src="images/aws/05.png" width="50%" alt="KNIME" /></span>
+                        <p>Here we can see all the instances created, the instance which we just created should be up and running(i.e. it should have a green light for instance state) if that's not the case you might want to check the IP and DNS settings manually/contact the AWS support to get it fixed.</p>
+                        <span class="image fit"><img src="images/aws/06.png" width="50%" alt="KNIME" /></span>
+                        <p>Now when you click on Launch Instance it should take you to this box where you should click on <b>Get Password</b></p>
+                        <span class="image fit"><img src="images/aws/07.png" width="50%" alt="KNIME" /></span>
+                        <p>Now browse your local machine to retrieve the Key pair that you downloaded earlier during the subscription. Use the <b>Browse</b> button to load this file and click on <b>Decrpyt Password</b> </p>
+                        <span class="image fit"><img src="images/aws/08.png" width="50%" alt="KNIME" /></span>
+                        <p>You should see the above window where the password has been loaded, Now click on <b>Copy to clipboard</b> near the password. Now you can download the remote desktop file and enter the credentials you just copied. </p>
+                        <span class="image fit"><img src="images/aws/09.png" width="50%" alt="KNIME" /></span>
+                        <p>Now the Remote Desktop connection should take you to the KNIME analytics platform. We've successfully set up the environment and the KNIME tool at this stage. Let's see how we can best utilize this tool now.</p>
+                        <span class="image fit"><img src="images/aws/10.png" width="50%" alt="KNIME" /></span>
+                        <p>If you have your data locally/ on AWS datalake use the Node repository to load it for usage on the current platform. In the above picture you can see the small File Reader icon we've right clicked on this icon and loaded our Adult Data, as you can see there is a green light below the icon which shows that it has been successfully loaded.</p>
+                        <blockquote>This experiment that we will be doing on KNIME, we will use Adult Dataset, also known as Census-Income Dataset. This data is publicly availabe from the Machine Learning Repository which is stored at the Center for Machine Learning and Intelligent Systems at the University of California, Irvine. </blockquote>
+                        <span class="image fit"><img src="images/aws/11.png" width="50%" alt="KNIME" /></span>
+                        <p>This dataset contains 48,842 rows with 14 features, each extracted from the 1994 Census database</p>
+                        <span class="image fit"><img src="images/aws/12.png" width="50%" alt="KNIME" /></span>
+                        <p>Very Important feature of KNIME is something called as <b>Dirt and Dust node</b>. The Dirt and Dust Node in KNIME helps us evaluate a feature's predective potential. Once you connect the file reader icon to Dirt or Dust icon, we are essentially trying to evaluate the predective potential of the adult dataset and figure out what features could be helpful for predicting target variable. Once you right click on the Dirt or Dust icon and press execute, it will generate a heatmap for us. </p>
+                        <span class="image fit"><img src="images/aws/13.png" width="50%" alt="KNIME" /></span>
+                        <p>Here's how to visualize the heatmap generated from Dirt and Dust node.As it says in the above image, the grey values denote features indicating higher predective potential, in this case, reelationship & age, marital status & age, education & occupation are some of the variables that will help us predict the income.</p>
+                        <span class="image fit"><img src="images/aws/14.png" width="50%" alt="KNIME" /></span>
+                        <p>Here's how we want to set up our Machine Learning Pipeline on KNIME. We want to connect File reader to a Partitioning node and then use that to split data for Learner model and Predictor node where we will send the data to be scored from there on.</p>
+                        <span class="image fit"><img src="images/aws/15.png" width="50%" alt="KNIME" /></span>
+                        <p>The above image is how it should look once we have set up our pipeline. As you can see we will be using Random Forest as our learner node, Since, we're using Random Forest Learner we will have to use the same model for Predictor node as well. And we use the confusion matrix(Accuracy) to score our model.</p>
+                        <span class="image fit"><img src="images/aws/16.png" width="50%" alt="KNIME" /></span>
+                        <p>You can configure the parameters of the Partitioning model by right clicking on the icon, In the above image we can see the options once you right click on the learner node, click on -> <b>Configure</b> </p>
+                        <span class="image fit"><img src="images/aws/17.png" width="50%" alt="KNIME" /></span>
+                        <p>Select the Relative percentage you want to split the data for Training and Testing, In the above image you can see we've chosen 80% Training and sample to be drawn randomly.</p>
+                        <span class="image fit"><img src="images/aws/18.png" width="50%" alt="KNIME" /></span>
+                        <p>Now we've split the data, we can move onto the learner node, right click and execute the command "execute" and wait for it to turn green</p>
+                        <span class="image fit"><img src="images/aws/19.png" width="50%" alt="KNIME" /></span>
+                        <p>Once the learner node has finished its run, it is now ready to be scored. Go ahead and right click on Confusion matrix icon and select "execute" for it to successfully score the model, wait till it has turned green. Once it has turned green, as in the above image, right click -> Prediction Output to see the predictions. The model that the Predictor uses is created by the Learner</p>
+                        <span class="image fit"><img src="images/aws/20.png" width="50%" alt="KNIME" /></span>
+                        <p>As you can see in the above image, an extra column for predictions have been generated. You can also right click on Confusion matrix and select Scorer to see the accuracy and other measures of the model.</p>
+                        <span class="image fit"><img src="images/aws/confusion.png" width="50%" alt="KNIME" /></span>
+                        <p>The Accuracy of this model is 87%</p>
+                        <p>Congratulations! You've just learnt how to build you Machine Learning pipeline on KNIME and how to best use KNIME to deduce predective power of variables from a dataset </p>
+
+
+
+                        </div>
+
+                        </div>
+                        </section>
+                <!-- Main -->
+               
+         
+                
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
